@@ -12,8 +12,8 @@ class FTPSpec extends FlatSpec with Matchers {
 
     client.connected should equal(true)
 
-    for(file <- client.listFiles(".")) {
-      println(file.getName)
+    for((file, _) <- client.listFiles(".")) {
+      println(file)
     }
   }
 }

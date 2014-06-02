@@ -2,23 +2,30 @@ package uk.co.bbc.ftp
 
 import org.apache.commons.net.ftp._
 
-class FTP(client: FTPClient) {
+class FTP(client: FTPClient = new FTPClient) {
 
-  def connectWithAuth(host: String, username: String, password: String) = {
+  def connect(host: String): Boolean = {
+    client.connect(host)
+    connected
+  }
+
+  def connectWithAuth(host: String, username: String, password: String): Boolean = {
     client.connect(host)
     client.login(username, password)
+    connected
   }
+
+  def listFiles(path: String): Seq[(String, FTPFile)] = {
+    client.listFiles(path).map { f => (f.getName, f) }
+  }
+
+  // Predicate functions
 
   def connected: Boolean = client.isConnected
-
-  def listFiles(path: String): Array[FTPFile] = {
-    client.listFiles(path)
-  }
 }
 
 object Client {
 
-  val client = new FTPClient
-
-  def apply () = new FTP(client)
+  def apply() = new FTP()
+  def apply(client: FTPHTTPClient) = new FTP(client)
 }
