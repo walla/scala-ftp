@@ -16,10 +16,9 @@ object E {
     if (client.filesInCurrentDirectory.contains("README")) {
       client.downloadFile("README")
     }
+
+    client.disconnect()
   }
-
-
-
 }
 
 ```
