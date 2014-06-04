@@ -11,12 +11,12 @@ class FTP(client: FTPClient) {
     client.login(username, password)
   }
 
-  def connected: Boolean = client.isConnected
-
   def connect(host: String) = Try {
     client.connect(host)
     client.enterLocalPassiveMode()
   }
+
+  def connected: Boolean = client.isConnected
 
   def disconnect(): Unit = client.disconnect()
 
@@ -56,7 +56,6 @@ class FTP(client: FTPClient) {
   /* Return a sequence of files in the current directory */
   def filesInCurrentDirectory: Seq[String] = extractNames(listFiles)
 
-  /* Download a file as a stream that can be pushed directly to S3 */
   def downloadFileStream(remote: String): InputStream = {
     val stream = client.retrieveFileStream(remote)
     client.completePendingCommand() // make sure it actually completes!!
