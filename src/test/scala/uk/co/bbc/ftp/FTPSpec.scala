@@ -6,7 +6,7 @@ class FTPSpec extends FlatSpec with Matchers {
 
   "An FTP Client" should "connect" in {
 
-    val client: FTP = Client()
+    val client: FTP = FTPClient()
 
     client.connectWithAuth("ftp.mozilla.org", "anonymous", "")
 

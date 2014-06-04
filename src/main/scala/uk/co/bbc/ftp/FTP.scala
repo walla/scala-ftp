@@ -5,7 +5,7 @@ import scala.util.Try
 import scala.io.Source.fromInputStream
 import java.io.{File, FileOutputStream, InputStream}
 
-class FTP(client: FTPClient) {
+sealed class FTP(client: FTPClient) {
 
   def login(username: String, password: String) = Try {
     client.login(username, password)
@@ -74,7 +74,7 @@ class FTP(client: FTPClient) {
   }
 }
 
-object Client {
+object FTPClient {
   def apply () = new FTP(new FTPClient)
 
 }
