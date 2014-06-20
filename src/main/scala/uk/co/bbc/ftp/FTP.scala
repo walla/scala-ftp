@@ -70,11 +70,13 @@ sealed class FTP(client: FTPClient) {
 
   /* Given a file name read the file content as a string */
   def streamAsString(stream: InputStream): String = {
-    fromInputStream(stream).getLines().mkString("\n")
+    fromInputStream(stream)
+      .getLines()
+      .mkString("\n")
   }
 }
 
 object FTPClient {
-  def apply () = new FTP(new FTPClient)
-
+  def apply () = 
+    new FTP(new FTPClient)
 }
