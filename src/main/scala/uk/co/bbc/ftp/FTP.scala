@@ -70,8 +70,8 @@ final class FTP(client: FTPClient) {
   /**
    * Download a single file i.e downloadFile("data.csv")
    */
-  def downloadFile(remote: String): Boolean = {
-    val os = new FileOutputStream(new File(remote))
+  def downloadFile(remote: String, local: Option[String] = None ): Boolean = {
+    val os = new FileOutputStream(new File(local.getOrElse(remote)))
     client.retrieveFile(remote, os)
   }
 
